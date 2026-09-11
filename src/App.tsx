@@ -8,13 +8,7 @@ function App() {
   const [downloadUrl, setDownloadUrl] = useState(FALLBACK_DOWNLOAD_URL)
 
   useEffect(() => {
-    fetch(LATEST_MANIFEST_URL, { cache: 'no-store' })
-      .then((response) => response.ok ? response.json() as Promise<{ githubUrl?: string; apkUrl?: string }> : null)
-      .then((manifest) => {
-        const latestUrl = manifest?.githubUrl || manifest?.apkUrl
-        if (latestUrl) setDownloadUrl(latestUrl)
-      })
-      .catch(() => undefined)
+    resolveLatestDownload().then(setDownloadUrl).catch(() => undefined)
   }, [])
 
   useEffect(() => {
@@ -90,6 +84,29 @@ function Capture({ src = `${ASSET_BASE}capturas/proba.png`, title }: { src?: str
 }
 
 const LATEST_MANIFEST_URL = 'https://raw.githubusercontent.com/ArtyomStkr/arancel_bob_releases/main/latest.json'
-const FALLBACK_DOWNLOAD_URL = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/download/v0.1.8/Arancel.Bolivia.2026.apk'
+const LATEST_RELEASE_API = 'https://api.github.com/repos/ArtyomStkr/arancel_bob_releases/releases/latest'
+const FALLBACK_DOWNLOAD_URL = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/latest/download/app-release.apk'
+
+async function resolveLatestDownload() {
+  try {
+    const response = await fetch(LATEST_RELEASE_API, { cache: 'no-store', headers: { Accept: 'application/vnd.github+json' } })
+    if (response.ok) {
+      const release = await response.json() as { assets?: Array<{ name?: string; browser_download_url?: string }> }
+      const apk = release.assets?.find((asset) => asset.name?.toLowerCase().endsWith('.apk') && asset.browser_download_url)
+      if (apk?.browser_download_url) return apk.browser_download_url
+    }
+  } catch { /* Continue with the public manifest fallback. */ }
+
+  try {
+    const response = await fetch(`${LATEST_MANIFEST_URL}?t=${Date.now()}`, { cache: 'no-store' })
+    if (response.ok) {
+      const manifest = await response.json() as { githubUrl?: string; apkUrl?: string }
+      const manifestUrl = manifest.githubUrl || manifest.apkUrl
+      if (manifestUrl) return manifestUrl
+    }
+  } catch { /* Use the stable GitHub latest-download URL below. */ }
+
+  return FALLBACK_DOWNLOAD_URL
+}
 
 export default App
