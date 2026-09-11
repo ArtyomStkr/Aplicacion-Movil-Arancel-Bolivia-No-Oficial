@@ -84,19 +84,9 @@ function Capture({ src = `${ASSET_BASE}capturas/proba.png`, title }: { src?: str
 }
 
 const LATEST_MANIFEST_URL = 'https://raw.githubusercontent.com/ArtyomStkr/arancel_bob_releases/main/latest.json'
-const LATEST_RELEASE_API = 'https://api.github.com/repos/ArtyomStkr/arancel_bob_releases/releases/latest'
-const FALLBACK_DOWNLOAD_URL = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/latest/download/app-release.apk'
+const FALLBACK_DOWNLOAD_URL = 'https://artyomstkr.github.io/arancel_bob_releases/Arancel%20Bolivia%202026.apk'
 
 async function resolveLatestDownload() {
-  try {
-    const response = await fetch(LATEST_RELEASE_API, { cache: 'no-store', headers: { Accept: 'application/vnd.github+json' } })
-    if (response.ok) {
-      const release = await response.json() as { assets?: Array<{ name?: string; browser_download_url?: string }> }
-      const apk = release.assets?.find((asset) => asset.name?.toLowerCase().endsWith('.apk') && asset.browser_download_url)
-      if (apk?.browser_download_url) return apk.browser_download_url
-    }
-  } catch { /* Continue with the public manifest fallback. */ }
-
   try {
     const response = await fetch(`${LATEST_MANIFEST_URL}?t=${Date.now()}`, { cache: 'no-store' })
     if (response.ok) {
@@ -104,7 +94,7 @@ async function resolveLatestDownload() {
       const manifestUrl = manifest.githubUrl || manifest.apkUrl
       if (manifestUrl) return manifestUrl
     }
-  } catch { /* Use the stable GitHub latest-download URL below. */ }
+  } catch { /* Use the stable GitHub Pages APK URL below. */ }
 
   return FALLBACK_DOWNLOAD_URL
 }
