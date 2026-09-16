@@ -84,7 +84,7 @@ function Capture({ src = `${ASSET_BASE}capturas/proba.png`, title }: { src?: str
 }
 
 const LATEST_MANIFEST_URL = 'https://raw.githubusercontent.com/ArtyomStkr/arancel_bob_releases/main/latest.json'
-const FALLBACK_DOWNLOAD_URL = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/download/v0.1.11/Arancel.Bolivia.2026.apk'
+const FALLBACK_DOWNLOAD_URL = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/download/v2.0.1/Arancel.Bolivia.2026.apk'
 
 async function resolveLatestDownload() {
   try {
