@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es-BO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Licencias de software de terceros í Arancel Bolivia 2026</title>
+<meta name="description" content="Inventario de bibliotecas de software de terceros incluidas en la Aplicación Arancel Bolivia 2026.">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<style>
+  :root {
+    --fondo: #ffffff;
+    --panel: #f7f8fa;
+    --texto: #1b1f24;
+    --cuerpo: #3d444d;
+    --suave: #6b727c;
+    --tenue: #8b929b;
+    --primario: #1f5fa8;
+    --borde: #e5e8ec;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--cuerpo);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 76px 24px 20px;
+    text-align: center;
+  }
+  .kicker {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--primario);
+  }
+  h1 {
+    margin: 0 0 16px;
+    font-size: clamp(1.8rem, 4.4vw, 2.55rem);
+    line-height: 1.22;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--texto);
+  }
+  .sub {
+    max-width: 62ch;
+    margin: 0 auto 30px;
+    color: var(--suave);
+    font-size: .95rem;
+    line-height: 1.6;
+  }
+  .regla {
+    border: 0;
+    border-top: 1px solid var(--borde);
+    margin: 0 0 44px;
+  }
+  h2 {
+    margin: 56px 0 16px;
+    font-size: 1.18rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--texto);
+  }
+  h3 {
+    margin: 34px 0 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto);
+  }
+  p {
+    max-width: 66ch;
+    margin: 0 auto 18px;
+  }
+  ul, ol {
+    list-style: none;
+    max-width: 66ch;
+    margin: 0 auto 22px;
+    padding: 0;
+  }
+  li { margin: 0 0 11px; }
+  strong { color: var(--texto); font-weight: 600; }
+  em { color: var(--suave); }
+  a {
+    color: var(--primario);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(31, 95, 168, .32);
+  }
+  a:hover { border-bottom-color: var(--primario); }
+  code {
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: .88em;
+  }
+  .aviso {
+    max-width: 66ch;
+    margin: 30px auto;
+    padding: 19px 24px;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-left: 3px solid var(--primario);
+    border-radius: 8px;
+  }
+  .aviso strong { color: var(--primario); }
+  .tabla {
+    width: 100%;
+    margin: 20px auto 26px;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+  .tabla th, .tabla td {
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--borde);
+    text-align: center;
+    vertical-align: middle;
+  }
+  .tabla th {
+    color: var(--suave);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #c8cdd3;
+  }
+  .lic {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .8rem;
+    color: var(--suave);
+    white-space: nowrap;
+  }
+  .doc-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 36px 0 0;
+  }
+  .doc-nav a {
+    padding: 8px 18px;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--suave);
+  }
+  .doc-nav a:hover { color: var(--primario); border-color: var(--primario); }
+  .doc-nav a[aria-current="page"] {
+    color: var(--primario);
+    border-color: var(--primario);
+    background: rgba(31, 95, 168, .06);
+  }
+  footer {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 30px 24px 68px;
+    border-top: 1px solid var(--borde);
+    color: var(--tenue);
+    font-size: .82rem;
+    line-height: 1.65;
+    text-align: center;
+  }
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+    main { padding: 50px 20px 16px; }
+    .regla { margin-bottom: 34px; }
+    h2 { margin-top: 44px; }
+    .tabla thead { display: none; }
+    .tabla tr { display: block; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--borde); }
+    .tabla td { display: block; border: 0; padding: 3px 0; }
+    .tabla td::before { content: attr(data-etiqueta) ": "; color: var(--suave); font-size: .78rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="kicker">Documentaciín legal</span>
+    <h1>Licencias de software de terceros</h1>
+    <p class="sub">Arancel Bolivia 2026 í Aplicación móvil no oficial í Última actualización: septiembre de 2026</p>
+    <nav class="doc-nav">
+      <a href="politica-privacidad.html">Privacidad</a>
+      <a href="terminos-y-Condiciones.html">Términos y Condiciones</a>
+      <a href="licencias-terceros.html" aria-current="page">Licencias de terceros</a>
+    </nav>
+  </header>
+  <hr class="regla">
+
+  <p>
+    La Aplicación <strong>Arancel Bolivia 2026</strong> se distribuye como software
+    libre de cídigo propietario que integra bibliotecas de terceros. Cada componente
+    conserva la autoría y la licencia de sus respectivos titulares. Esta pígina es un
+    <strong>inventario resumen</strong>: no sustituye a los textos legales originales.
+  </p>
+
+  <div class="aviso">
+    <strong>Textos completos dentro de la app.</strong> La lista de licencias original
+    de cada paquete se muestra en
+    <em>Acerca de ? Licencias de software de terceros</em>, que es la fuente de verdad
+    para la distribuciín legal.
+  </div>
+
+  <h2>1. Motores y foundational</h2>
+  <table class="tabla">
+    <thead>
+      <tr><th>Componente</th><th>Uso en la app</th><th>Licencia</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Flutter SDK<br><span class="lic">Dart</span></td>
+        <td data-etiqueta="Uso">Motor de interfaz y lenguaje en que estí escrita la app</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>Material Design<br><span class="lic">flutter_lints (dev)</span></td>
+        <td data-etiqueta="Uso">Sistema de diseío, iconos y reglas de anílisis estítico</td>
+        <td data-etiqueta="Licencia" class="lic">Apache-2.0 / BSD-3-Clause</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Datos y almacenamiento local</h2>
+  <table class="tabla">
+    <thead>
+      <tr><th>Componente</th><th>Uso en la app</th><th>Licencia</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>sqflite</td>
+        <td data-etiqueta="Uso">Base de datos SQLite con el Arancel Aduanero 2026</td>
+        <td data-etiqueta="Licencia" class="lic">MIT</td>
+      </tr>
+      <tr>
+        <td>SQLite</td>
+        <td data-etiqueta="Uso">Motor SQL embebido que usa sqflite</td>
+        <td data-etiqueta="Licencia" class="lic">Dominio píblico</td>
+      </tr>
+      <tr>
+        <td>shared_preferences</td>
+        <td data-etiqueta="Uso">Preferencias: tema, ayudas, consentimientos, historial</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>path / path_provider</td>
+        <td data-etiqueta="Uso">Rutas del sistema de archivos y carpeta de la base de datos</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Red y conectividad</h2>
+  <table class="tabla">
+    <thead>
+      <tr><th>Componente</th><th>Uso en la app</th><th>Licencia</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>http</td>
+        <td data-etiqueta="Uso">Peticiones HTTPS: tipo de cambio y verificaciín de actualizaciones</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>connectivity_plus</td>
+        <td data-etiqueta="Uso">Detecta si hay red antes de enviar datos</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>url_launcher</td>
+        <td data-etiqueta="Uso">Abre la documentaciín legal y enlaces en el navegador</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>open_filex</td>
+        <td data-etiqueta="Uso">Abre el archivo de actualización descargado</td>
+        <td data-etiqueta="Licencia" class="lic">MIT</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. Backend y servicios de Google</h2>
+  <table class="tabla">
+    <thead>
+      <tr><th>Componente</th><th>Uso en la app</th><th>Licencia</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>firebase_core</td>
+        <td data-etiqueta="Uso">Inicializaciín de Firebase</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>firebase_auth</td>
+        <td data-etiqueta="Uso">Sesiín anínima, sin correo ni contraseía</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>cloud_firestore</td>
+        <td data-etiqueta="Uso">Envío de feedback, estadísticas y registros de error</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5. Informaciín del dispositivo y presentaciín</h2>
+  <table class="tabla">
+    <thead>
+      <tr><th>Componente</th><th>Uso en la app</th><th>Licencia</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>device_info_plus</td>
+        <td data-etiqueta="Uso">Marca, modelo y versiín de Android en los reportes</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>package_info_plus</td>
+        <td data-etiqueta="Uso">Versiín y build number de la app</td>
+        <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
+      </tr>
+      <tr>
+        <td>flutter_markdown</td>
+        <td data-etiqueta="Uso">Renderizado de textos tícnicos y explicaciones</td>
+        <td data-etiqueta="Licencia" class="lic">MIT</td>
+      </tr>
+      <tr>
+        <td>cupertino_icons</td>
+        <td data-etiqueta="Uso">Iconos de estilo iOS</td>
+        <td data-etiqueta="Licencia" class="lic">MIT</td>
+      </tr>
+      <tr>
+        <td>pdfrx</td>
+        <td data-etiqueta="Uso">Visor de documentos PDF</td>
+        <td data-etiqueta="Licencia" class="lic">MIT</td>
+      </tr>
+      <tr>
+        <td>PDFium</td>
+        <td data-etiqueta="Uso">Motor de renderizado PDF incluido en pdfrx</td>
+        <td data-etiqueta="Licencia" class="lic">Apache-2.0 / BSD-3-Clause</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>6. Címo leer estas licencias</h2>
+  <ul>
+    <li><strong>MIT</strong> y <strong>BSD-3-Clause</strong> permiten uso, modificaciín y redistribuciín conservando el aviso de copyright.</li>
+    <li><strong>Apache-2.0</strong> aíade obligaciones de notificaciín de cambios y sobre patents.</li>
+    <li><strong>Dominio píblico</strong> no impone Condiciones de uso.</li>
+  </ul>
+  <p>
+    Ninguna de estas licencias transfiere derechos sobre el cídigo propio de la
+    Aplicación, que se rige por los <a href="terminos-y-Condiciones.html">Términos y
+    Condiciones</a>. Ningín titular de estas bibliotecas respalda ni audita esta
+    Aplicación.
+  </p>
+
+  <h2>7. Verificaciín</h2>
+  <p>
+    La lista completa y los textos legales sin abreviar se generan desde el archivo
+    <code>pubspec.lock</code> del proyecto y se muestran sin conexiín dentro de la
+    propia Aplicación. Si un componente cambia de versiín, la tabla anterior se
+    actualiza junto con la app.
+  </p>
+</main>
+
+<footer>
+  Documento independiente de la Aplicación. La App no es un írgano del Estado
+  Plurinacional de Bolivia.
+</footer>
+</body>
+</html>
