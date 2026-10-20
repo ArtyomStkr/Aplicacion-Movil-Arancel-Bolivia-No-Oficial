@@ -144,13 +144,13 @@
   <header class="titulo">
     <p class="rotulo">Documentación legal</p>
     <h1>Licencias de software de terceros</h1>
-    <p class="sub">Arancel Bolivia 2026 · Aplicación móvil no oficial · Última actualización: septiembre de 2026</p>
+    <p class="sub">Arancel Bolivia 2026 · Aplicación móvil no oficial · Última actualización: 20 de octubre de 2026</p>
   </header>
   <hr class="regla">
 
   <p>
     La aplicación <strong>Arancel Bolivia 2026</strong> se distribuye como software
-    libre de código propietario que integra bibliotecas de terceros. Cada componente
+    propietario que integra bibliotecas de terceros. Cada componente
     conserva la autoría y la licencia de sus respectivos titulares. Esta página es un
     <strong>inventario resumen</strong>: no sustituye a los textos legales originales.
   </p>
@@ -158,7 +158,7 @@
   <div class="aviso">
     <strong>Textos completos dentro de la app.</strong> La lista de licencias original
     de cada paquete se muestra en
-    <em>Acerca de → Licencias de software de terceros</em>, que es la fuente de verdad
+    <em>Acerca de → Textos completos de licencias (sin conexión)</em>, que es la fuente de verdad
     para la distribución legal.
   </div>
 
@@ -218,7 +218,7 @@
     <tbody>
       <tr>
         <td>http</td>
-        <td data-etiqueta="Uso">Peticiones HTTPS: tipo de cambio y verificación de actualizaciones</td>
+        <td data-etiqueta="Uso">Peticiones HTTPS: tipo de cambio; QR y actualizaciones solo en Versión Gratuita</td>
         <td data-etiqueta="Licencia" class="lic">BSD-3-Clause</td>
       </tr>
       <tr>
@@ -302,10 +302,26 @@
     </tbody>
   </table>
 
+
+  <h2>Publicidad y recursos de apoyo: solo Versión Gratuita</h2>
+  <table class="tabla"><thead><tr><th>Componente</th><th>Uso en la app</th><th>Licencia</th></tr></thead><tbody>
+    <tr><td>Start.io Android SDK 5.4.0<br><span class="lic">com.startapp:inapp-sdk</span></td>
+    <td data-etiqueta="Uso">Intersticial tras un cálculo al cambiar de pantalla, con elección separada de personalización. Actualmente en modo de prueba.</td>
+    <td data-etiqueta="Licencia"><a href="https://github.com/StartApp-SDK/startio-android-inapp-sdk/blob/master/LICENSE">Start.io License (propietaria)</a></td></tr>
+    <tr><td>Marca y logo de Ko-fi</td><td data-etiqueta="Uso">Botón para abrir el panel de aportes. No se integra su script web.</td>
+    <td data-etiqueta="Licencia"><a href="https://more.ko-fi.com/brand-assets">Recursos oficiales de marca de Ko-fi</a></td></tr>
+  </tbody></table>
+  <p>El SDK publicitario y sus dependencias nativas se enlazan únicamente en la variante Android Versión Gratuita.
+  No se utiliza el paquete Flutter <code>startapp_sdk</code>: el puente Android usa directamente el SDK oficial.
+  Premium no incorpora Start.io ni solicita anuncios. Las marcas pertenecen a sus respectivos titulares.</p>
+  <p>El texto íntegro de la licencia Start.io acompaña a Versión Gratuita y se muestra con las licencias locales de la App.
+  Sus dependencias AndroidX, Kotlin, coroutines, Google App Set y otras conservan sus propios avisos y licencias;
+  no quedan relicenciadas por la App. La licencia de Start.io no es una licencia de código abierto.</p>
+
   <h2>6. Cómo leer estas licencias</h2>
   <ul>
     <li><strong>MIT</strong> y <strong>BSD-3-Clause</strong> permiten uso, modificación y redistribución conservando el aviso de copyright.</li>
-    <li><strong>Apache-2.0</strong> añade obligaciones de notificación de cambios y sobre patents.</li>
+    <li><strong>Apache-2.0</strong> añade obligaciones de notificación de cambios y sobre patentes.</li>
     <li><strong>Dominio público</strong> no impone condiciones de uso.</li>
   </ul>
   <p>
@@ -316,9 +332,9 @@
   </p>
 
   <h2>7. Verificación</h2>
+  <p>La relación de paquetes Flutter procede de <code>pubspec.lock</code>; los componentes nativos se resuelven mediante Gradle para cada flavor. El aviso adicional de Start.io se registra explícitamente en Versión Gratuita.</p>
   <p>
-    La lista completa y los textos legales sin abreviar se generan desde el archivo
-    <code>pubspec.lock</code> del proyecto y se muestran sin conexión dentro de la
+    La lista completa y los textos legales sin abreviar se incluyen en la compilación y se muestran sin conexión dentro de la
     propia aplicación. Si un componente cambia de versión, la tabla anterior se
     actualiza junto con la app.
   </p>

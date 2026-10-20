@@ -36,7 +36,8 @@ function App() {
       context.beginPath()
       for (let x = 0; x <= width; x += 5) {
         const y = height * .5 + Math.sin(x * .018 + frame * .025) * 18 + Math.sin(x * .047 + frame * .012) * 8
-        x === 0 ? context.moveTo(x, y) : context.lineTo(x, y)
+        if (x === 0) context.moveTo(x, y)
+        else context.lineTo(x, y)
       }
       context.stroke()
       for (let index = 0; index < 3; index += 1) {
@@ -67,7 +68,7 @@ function App() {
 
   return <div className="page-shell">
     <header className="nav"><a className="wordmark" href="#inicio"><img src={`${ASSET_BASE}logo.png`} alt="" /><strong>Aranceles Bolivia <i>2026 no Oficial</i></strong></a><nav><a href="#como-funciona">Instalación</a><a href="#capacidades">Funciones</a><a href="#proyecto">El proyecto</a></nav><a className="nav-download" href={downloadUrl} download>Descargar <b>↗</b></a></header>
-    <main>
+    <main><p role="note" style={{padding: "1rem 1.5rem", textAlign: "center"}}>v0.3.0 se instala como una aplicación separada de v0.2.5. Los datos de la app anterior permanecen en ella.</p>
       <section className="hero section" id="inicio"><div className="hero-copy reveal"><p className="eyebrow"><span className="live-dot" /> Bolivia · Aranceles 2026</p><h1>Consulta y calcula<br /><em>desde tu celular.</em></h1><p className="hero-lead"><strong>Aplicación Móvil de Consultas de Partidas Arancelarias de Bolivia y Calculadora de Tributos Aduaneros.</strong> Una herramienta clara para decidir mejor, incluso cuando estás lejos de tu escritorio.</p><div className="hero-actions"><a className="button button-primary" href={downloadUrl} download><span className="download-icon">↓</span> Descargar para Android</a><a className="text-link" href="#como-funciona">Ver instalación <span>→</span></a></div><p className="microcopy">Beta pública · Android 8.0 o superior · Gratis</p><p className="unofficial-notice"><span>!</span> Aplicación independiente, no oficial</p></div><div className="hero-visual reveal-delay"><div className="stamp">HECHO<br /><strong>EN BOLIVIA</strong><br /><small>2026 / BETA</small></div><div className="hero-app-shot"><img className="device-image" src={`${ASSET_BASE}capturas/principal.png`} alt="Pantalla principal de Arancel BOB" /></div><div className="orbit orbit-one" /><div className="orbit orbit-two" /></div></section>
       <section className="signal-band"><div><h2>Menos vueltas.<br /><span>Más claridad.</span></h2></div><div className="signal-info"><p>La información que necesitas, ordenada para el momento exacto en que la necesitas.</p><div className="signal-data"><span><b className="signal-pulse" /> BASE BOLIVIANA</span><strong>+11.000</strong><small>partidas arancelarias</small></div><div className="offline-note"><span>◉</span><strong>Funciona sin conexión</strong><small>Consulta la base local sin consumir datos.</small></div></div><canvas id="signal-canvas" aria-label="Visualización animada de datos" /></section>
       <section className="steps section" id="como-funciona"><div className="section-heading"><div><h2>Actualiza con<br /><em>confianza.</em></h2></div><p>Como todavía no estamos en plataformas oficiales como Play Store, las actualizaciones requieren habilitar temporalmente el permiso de instalación desde fuentes desconocidas.</p></div><div className="steps-grid">{steps.map((step, index) => <button className={`step-card ${activeStep === index ? 'selected' : ''}`} key={step.number} type="button" onClick={() => setActiveStep(index)}><span className="step-number">{step.number}</span><span className={`step-visual visual-${index + 1}`}>{step.visual}</span><strong>{step.title}</strong><p>{step.text}</p><small>{step.label}</small></button>)}</div><div className="capture-strip"><Capture src={`${ASSET_BASE}capturas/permisos0.png`} title="Aviso de actualización" /><Capture src={`${ASSET_BASE}capturas/permisos1.png`} title="Permitir fuentes desconocidas" /><Capture src={`${ASSET_BASE}capturas/permisos2.png`} title="Habilitar permiso y actualizar" /></div></section>
@@ -84,7 +85,7 @@ function Capture({ src = `${ASSET_BASE}capturas/proba.png`, title }: { src?: str
 }
 
 const LATEST_MANIFEST_URL = 'https://raw.githubusercontent.com/ArtyomStkr/arancel_bob_releases/main/latest.json'
-const FALLBACK_DOWNLOAD_URL = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/download/v2.0.1/Arancel.Bolivia.2026.apk'
+const FALLBACK_DOWNLOAD_URL = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/latest/download/Arancel.Bolivia.2026.apk'
 
 async function resolveLatestDownload() {
   try {
