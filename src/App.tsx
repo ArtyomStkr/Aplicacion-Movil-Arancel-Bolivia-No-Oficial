@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { RELEASES, DOWNLOAD, MANIFEST, releaseFromManifest } from './lib/releases'
+import { RELEASES, DOWNLOAD, MANIFEST, manifestCandidates, releaseTagApiUrl, githubAssetExists } from './lib/releases'
 import './App.css'
 
 const BASE = import.meta.env.BASE_URL
@@ -11,6 +11,18 @@ const updateSteps = [
   { id: 'permisos2', title: 'Permite esta fuente y vuelve', text: 'Activa «Confiar en esta fuente» o «Permitir desde esta fuente». Regresa a la app y confirma la instalación de la actualización.', alt: 'Ajuste de Android Instalar apps desconocidas con Confiar en esta fuente activado', width: 418, height: 881 },
 ]
 type IconName = 'arrow' | 'download' | 'search' | 'book' | 'calculator' | 'heart' | 'wifi' | 'check' | 'sun' | 'moon' | 'menu' | 'close' | 'chevron' | 'android' | 'shield'
+
+async function candidateAvailable(candidate: { url: string; source: 'github' | 'raw' }, signal: AbortSignal) {
+  if (candidate.source === 'raw') {
+    const response = await fetch(candidate.url, { method: 'HEAD', signal })
+    return response.ok
+  }
+  const apiUrl = releaseTagApiUrl(candidate.url)
+  if (!apiUrl) return false
+  const response = await fetch(apiUrl, { signal })
+  if (!response.ok) return false
+  return githubAssetExists(await response.json(), candidate.url)
+}
 
 function Icon({ name, className = '' }: { name: IconName; className?: string }) {
   const paths: Record<IconName, ReactNode> = {
@@ -71,9 +83,15 @@ function App() {
       try {
         const response = await fetch(MANIFEST, { cache: 'no-store', signal: controller.signal })
         if (!response.ok) throw new Error('Manifest unavailable')
-        const release = releaseFromManifest(await response.json())
-        if (!release) throw new Error('Invalid download manifest')
-        if (mounted) setDownload({ ...release, status: 'live' })
+        // El catálogo puede anunciar una versión cuyo asset de GitHub aún no existe.
+        // Comprobamos cada destino antes de ofrecerlo como descarga principal.
+        for (const candidate of manifestCandidates(await response.json())) {
+          if (await candidateAvailable(candidate, controller.signal)) {
+            if (mounted) setDownload({ url: candidate.url, version: candidate.version, status: 'live' })
+            return
+          }
+        }
+        throw new Error('No verified download')
       } catch { if (mounted) setDownload({ url: DOWNLOAD, version: '', status: 'fallback' }) }
       finally { window.clearTimeout(timeout) }
     }
@@ -153,7 +171,7 @@ function App() {
         <div className="install-note"><Icon name="shield" /><p>«Apps desconocidas» es el nombre que Android da a las instalaciones desde fuera de la tienda. Autoriza la fuente desde la que abres este APK: puede ser Arancel Bolivia al actualizar, tu navegador o tu gestor de archivos. Puedes desactivar el permiso al terminar.</p></div>
       </section>
 
-      <section className="download-section container" id="descargar"><div className="download-content"><p className="eyebrow"><span /> BETA PÚBLICA · EN DESARROLLO</p><h2>Prueba la beta.<br /><span>Ayúdanos a mejorar.</span></h2><p>Explora la nueva interfaz de Arancel Bolivia y comparte tus sugerencias desde la app. Todavía está en fase de pruebas: puedes encontrar errores y funciones que cambien en próximas versiones.</p><div className="download-actions">{downloadButton('Descargar APK beta', 'button-mint')}<a className="release-link" href={RELEASES} target="_blank" rel="noopener noreferrer">Ver versiones en GitHub <Icon name="arrow" /></a></div><div className="download-status" role="status">{download.status === 'loading' ? 'Consultando la versión beta disponible…' : download.status === 'live' ? `${download.version ? `Beta ${download.version} · ` : ''}Enlace obtenido del catálogo de versiones` : <>El catálogo no respondió. El botón sigue disponible con el enlace de última versión en GitHub. <button type="button" onClick={() => setRetry(value => value + 1)}>Reintentar</button></>}</div><div className="download-meta"><span><Icon name="android" />Android · Archivo APK</span><span>Beta gratuita con publicidad</span></div></div><div className="download-art" aria-hidden="true"><span className="download-orbit" /><img src={`${BASE}brand/logo-jade.webp`} width="220" height="220" alt="" loading="lazy" /><span className="art-label">ARANCEL BOLIVIA<span>2026 / BETA / NO OFICIAL</span></span></div></section>
+      <section className="download-section container" id="descargar"><div className="download-content"><p className="eyebrow"><span /> BETA PÚBLICA · EN DESARROLLO</p><h2>Prueba la beta.<br /><span>Ayúdanos a mejorar.</span></h2><p>Explora la nueva interfaz de Arancel Bolivia y comparte tus sugerencias desde la app. Todavía está en fase de pruebas: puedes encontrar errores y funciones que cambien en próximas versiones.</p><div className="download-actions">{downloadButton('Descargar APK beta', 'button-mint')}<a className="release-link" href={RELEASES} target="_blank" rel="noopener noreferrer">Ver versiones en GitHub <Icon name="arrow" /></a></div><div className="download-status" role="status">{download.status === 'loading' ? 'Consultando la versión beta disponible…' : download.status === 'live' ? `${download.version ? `Beta ${download.version} · ` : ''}Enlace obtenido del catálogo de versiones` : <>No se pudo verificar la descarga del catálogo. El botón usa el enlace estable de última versión en GitHub. <button type="button" onClick={() => setRetry(value => value + 1)}>Reintentar</button></>}</div><div className="download-meta"><span><Icon name="android" />Android · Archivo APK</span><span>Beta gratuita con publicidad</span></div></div><div className="download-art" aria-hidden="true"><span className="download-orbit" /><img src={`${BASE}brand/logo-jade.webp`} width="220" height="220" alt="" loading="lazy" /><span className="art-label">ARANCEL BOLIVIA<span>2026 / BETA / NO OFICIAL</span></span></div></section>
 
       <section className="section container faq-section" id="preguntas"><div className="faq-intro"><p className="eyebrow"><span /> ANTES DE EMPEZAR</p><h2>Preguntas<br /><span>frecuentes.</span></h2><p>Lo que necesitas saber sobre la descarga, la instalación y el uso de la app.</p></div><div className="faq-list">{questions.map(item => <details key={item.q}><summary>{item.q}<Icon name="chevron" /></summary><p>{item.a}</p></details>)}</div></section>
 

@@ -30,7 +30,7 @@ npm run build
 
 `src/lib/releases.ts` centraliza las direcciones públicas. La página consulta `latest.json` del repositorio `ArtyomStkr/arancel_bob_releases`, prioriza `githubUrl` y acepta `apkUrl` como alternativa. Solo acepta APK por HTTPS dentro de ese repositorio. La versión se muestra únicamente cuando el catálogo devuelve un dato válido.
 
-Tras ocho segundos o ante una respuesta inválida se conserva el enlace estable de última versión en GitHub y se ofrece reintentar. No se almacena ni se distribuye el APK dentro de este repositorio. Las pruebas verifican el manifiesto actual, la alternativa RAW, destinos inválidos y el enlace de respaldo.
+Antes de ofrecer un enlace se comprueba que funcione: el destino de GitHub se valida con la API de releases (tag extraído de la URL y asset presente, ya que `github.com` no permite verificarlo desde el navegador por CORS) y el destino RAW con una petición HEAD. Si el catálogo anuncia una versión cuyo asset de GitHub todavía no existe, se usa el APK RAW; si ninguno responde, se conserva el enlace estable de última versión en GitHub y se ofrece reintentar. El tiempo límite es de ocho segundos. No se almacena ni se distribuye el APK dentro de este repositorio. Las pruebas verifican el manifiesto actual, la alternativa RAW, destinos inválidos, el orden de candidatos, la validación del asset y el enlace de respaldo.
 
 ## Actualizar las capturas
 

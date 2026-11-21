@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { releaseFromManifest, trustedDownload, DOWNLOAD } from '../src/lib/releases.ts'
+import { releaseFromManifest, trustedDownload, DOWNLOAD, manifestCandidates, releaseTagApiUrl, githubAssetExists } from '../src/lib/releases.ts'
 
 const publishedApk = 'https://github.com/ArtyomStkr/arancel_bob_releases/releases/download/v0.3.3/Arancel.Bolivia.2026.apk'
 const rawApk = 'https://raw.githubusercontent.com/ArtyomStkr/arancel_bob_releases/main/Arancel%20Bolivia%202026.apk?v=0.3.3-25'
@@ -19,3 +19,26 @@ test('does not display arbitrary manifest content as a version', () => {
   assert.equal(releaseFromManifest({ githubUrl: publishedApk, version: '0.4.0-beta.1' })?.version, '0.4.0-beta.1')
 })
 test('the stable fallback is a valid APK destination', () => assert.equal(trustedDownload(DOWNLOAD), true))
+
+test('manifest candidates keep safe destinations in priority order', () => {
+  assert.deepEqual(manifestCandidates({ githubUrl: publishedApk, apkUrl: rawApk, version: '0.3.3' }), [
+    { url: publishedApk, version: '0.3.3', source: 'github' },
+    { url: rawApk, version: '0.3.3', source: 'raw' },
+  ])
+  assert.deepEqual(manifestCandidates({ githubUrl: 'https://example.com/file.apk', apkUrl: rawApk }), [{ url: rawApk, version: '', source: 'raw' }])
+  assert.deepEqual(manifestCandidates(null), [])
+})
+
+test('GitHub release checks use the tag from the asset URL', () => {
+  assert.equal(releaseTagApiUrl(publishedApk), 'https://api.github.com/repos/ArtyomStkr/arancel_bob_releases/releases/tags/v0.3.3')
+  assert.equal(releaseTagApiUrl(rawApk), '')
+  assert.equal(releaseTagApiUrl('https://github.com/ArtyomStkr/arancel_bob_releases/releases/download/file.apk'), '')
+})
+
+test('a GitHub release only validates when it contains the expected APK', () => {
+  const release = { assets: [{ browser_download_url: publishedApk }, { browser_download_url: 'https://example.com/other.apk' }] }
+  assert.equal(githubAssetExists(release, publishedApk), true)
+  assert.equal(githubAssetExists(release, rawApk), false)
+  assert.equal(githubAssetExists({ assets: [] }, publishedApk), false)
+  assert.equal(githubAssetExists(null, publishedApk), false)
+})
